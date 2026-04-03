@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚗 Ultimate Car Gallery 🚗</title>
+  <style>
+    /* GENERAL STYLES */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(90deg,#00ffff,#00bfbf);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,255,255,0.3);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      color: #000;
+    }
+
+    /* BUTTON */
+    .button {
+      background-color: #00ffff;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+    .button:hover {
+      background-color: #00bfbf;
+    }
+
+    /* CAR GALLERY */
+    #carsContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .carCard {
+      background-color: #222;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,255,255,0.3);
+      padding: 15px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+    }
+    .carCard:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,255,255,0.6);
+    }
+    .carCard img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+    .carCard h3 {
+      color: #00ffff;
+      margin: 5px 0;
+    }
+    .carCard p {
+      color: #ddd;
+      font-size: 0.9em;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: #888;
+      font-size: 0.9em;
+      margin-top: 40px;
+      box-shadow: inset 0 5px 10px rgba(0,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🚗 Ultimate Car Gallery 🚗</h1>
+    <button class="button" onclick="showAllCars()">Show All Cars</button>
+  </header>
+
+  <main id="carsContainer">
+    <!-- Cars will appear here -->
+  </main>
+
+  <footer>
+    <p>© 2026 Ultimate Car Gallery | Made with ❤️ + HTML + CSS + JS</p>
+  </footer>
+
+  <script>
+    // List of 20 cars with details
+    const cars = [
+      {name:"Ferrari F8", img:"https://via.placeholder.com/300x150?text=Ferrari+F8", details:"Top Speed: 340km/h | 0-100: 2.9s | Price: $280k"},
+      {name:"Lamborghini Huracan", img:"https://via.placeholder.com/300x150?text=Lambo+Huracan", details:"Top Speed: 325km/h | 0-100: 3.2s | Price: $261k"},
+      {name:"Porsche 911", img:"https://via.placeholder.com/300x150?text=Porsche+911", details:"Top Speed: 308km/h | 0-100: 3.5s | Price: $150k"},
+      {name:"Bugatti Chiron", img:"https://via.placeholder.com/300x150?text=Bugatti+Chiron", details:"Top Speed: 420km/h | 0-100: 2.4s | Price: $3M"},
+      {name:"McLaren 720S", img:"https://via.placeholder.com/300x150?text=McLaren+720S", details:"Top Speed: 341km/h | 0-100: 2.9s | Price: $300k"},
+      {name:"Audi R8", img:"https://via.placeholder.com/300x150?text=Audi+R8", details:"Top Speed: 330km/h | 0-100: 3.4s | Price: $142k"},
+      {name:"Ford Mustang", img:"https://via.placeholder.com/300x150?text=Ford+Mustang", details:"Top Speed: 250km/h | 0-100: 4.3s | Price: $55k"},
+      {name:"Chevrolet Camaro", img:"https://via.placeholder.com/300x150?text=Chevy+Camaro", details:"Top Speed: 290km/h | 0-100: 4.0s | Price: $62k"},
+      {name:"Tesla Model S", img:"https://via.placeholder.com/300x150?text=Tesla+Model+S", details:"Top Speed: 322km/h | 0-100: 2.1s | Price: $120k"},
+      {name:"BMW M4", img:"https://via.placeholder.com/300x150?text=BMW+M4", details:"Top Speed: 290km/h | 0-100: 4.1s | Price: $72k"},
+      {name:"Mercedes AMG GT", img:"https://via.placeholder.com/300x150?text=Mercedes+AMG+GT", details:"Top Speed: 310km/h | 0-100: 3.6s | Price: $115k"},
+      {name:"Aston Martin DB11", img:"https://via.placeholder.com/300x150?text=Aston+DB11", details:"Top Speed: 322km/h | 0-100: 3.9s | Price: $205k"},
+      {name:"Nissan GT-R", img:"https://via.placeholder.com/300x150?text=Nissan+GT-R", details:"Top Speed: 315km/h | 0-100: 2.9s | Price: $115k"},
+      {name:"Honda NSX", img:"https://via.placeholder.com/300x150?text=Honda+NSX", details:"Top Speed: 307km/h | 0-100: 3.1s | Price: $157k"},
+      {name:"Koenigsegg Jesko", img:"https://via.placeholder.com/300x150?text=Koenigsegg+Jesko", details:"Top Speed: 480km/h | 0-100: 2.5s | Price: $3M"},
+      {name:"Pagani Huayra", img:"https://via.placeholder.com/300x150?text=Pagani+Huayra", details:"Top Speed: 383km/h | 0-100: 2.8s | Price: $2.6M"},
+      {name:"Toyota Supra", img:"https://via.placeholder.com/300x150?text=Toyota+Supra", details:"Top Speed: 250km/h | 0-100: 4.1s | Price: $55k"},
+      {name:"Dodge Charger", img:"https://via.placeholder.com/300x150?text=Dodge+Charger", details:"Top Speed: 290km/h | 0-100: 4.2s | Price: $65k"},
+      {name:"Jaguar F-Type", img:"https://via.placeholder.com/300x150?text=Jaguar+F-Type", details:"Top Speed: 300km/h | 0-100: 3.9s | Price: $101k"},
+      {name:"Chevrolet Corvette", img:"https://via.placeholder.com/300x150?text=Chevy+Corvette", details:"Top Speed: 312km/h | 0-100: 2.9s | Price: $90k"}
+    ];
+
+    const container = document.getElementById('carsContainer');
+
+    function showAllCars() {
+      container.innerHTML = '';
+      cars.forEach(car => {
+        const card = document.createElement('div');
+        card.className = 'carCard';
+        card.innerHTML = `
+          <img src="${car.img}" alt="${car.name}">
+          <h3>${car.name}</h3>
+          <p>${car.details}</p>
+          <button class="button" onclick="alert('More info about ${car.name}!')">More Info</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Initial load: show all cars
+    showAllCars();
+  </script>
+
+</body>
+</html>
